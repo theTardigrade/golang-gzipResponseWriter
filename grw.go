@@ -22,7 +22,7 @@ func New(rw http.ResponseWriter) (*GzipResponseWriter, error) {
 	}
 
 	gw, err := gzip.NewWriterLevel(grw.buffer, gzip.BestSpeed)
-	if err == nil {
+	if err != nil {
 		return nil, err
 	}
 	grw.gzipWriter = gw
