@@ -15,19 +15,19 @@ type GzipResponseWriter struct {
 	bufferMutex sync.Mutex
 }
 
-func New(rw http.ResponseWriter) *GzipResponseWriter {
+func New(rw http.ResponseWriter) (*GzipResponseWriter, error) {
 	grw := GzipResponseWriter{
 		ResponseWriter: rw,
 		buffer:         &bytes.Buffer{},
 	}
 
 	gw, err := gzip.NewWriterLevel(grw.buffer, gzip.BestSpeed)
-	if err != nil {
-		panic(err)
+	if err == nil {
+		return nil, err
 	}
 	grw.gzipWriter = gw
 
-	return &grw
+	return &grw, nil
 }
 
 func (grw *GzipResponseWriter) Close() error {
