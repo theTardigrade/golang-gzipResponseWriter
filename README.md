@@ -1,1 +1,1 @@
-# gzipResponseWriter
+# golang-gzipResponseWriter
